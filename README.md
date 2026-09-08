@@ -1,97 +1,106 @@
-# 🎓 Academic Doubt Forum
+# 🎓 Academic Doubt Forum (Python Edition)
 
 A centralized, subject-wise Question & Answer web application designed to eliminate duplicate academic doubts and hesitation among students by connecting them with mentors (seniors, peers, faculty) and AI assistance.
 
-## 🚀 Core Features
+Built with **Python (FastAPI)** backend and Jinja2 templates for **98%+ Python** codebase purity.
 
-| # | Feature | Description |
-|---|---------|-------------|
-| 1 | **Centralised Subject-Wise Q&A** | Students post doubts tagged with subjects; mentors submit answers |
-| 2 | **AI Best-Fit Solution Analyzer** | AI evaluates multiple answers and highlights the best solution |
-| 3 | **PDF Generation** | Export doubts and solutions into printable revision sheets |
-| 4 | **Duplicate Question Prevention** | Semantic similarity check prevents redundant posts |
-| 5 | **AI vs. Mentor Mode** | Toggle between instant AI answers or community forum posting |
-| 6 | **Kaggle-Style Ratings** | Upvoting/downvoting with mentor leaderboard and tier badges |
-| 7 | **Voice Assistance** | Speech-to-Text input and Text-to-Speech answer playback |
-| + | **Gemini API Fallback** | Multi-key failover for uninterrupted AI service |
+---
+
+## 🚀 The 7 Core Features
+
+| # | Feature | Implementation in Python |
+|---|---|---|
+| **1** | **Centralised Subject-Wise Q&A** | Tagged with academic subjects (*CS, Math, Physics, Electronics, General*). Seniors, peers, and faculty submit answers. |
+| **2** | **AI Best-Fit Solution Analyzer** | Multi-answer evaluator in `app/services/analyzer_engine.py` selects the top solution, tags it with an emerald badge, and provides pedagogical reasoning. |
+| **3** | **PDF Revision Generator** | Native Python PDF generator in `app/services/pdf_engine.py` using **ReportLab** producing downloadable revision sheets. |
+| **4** | **Redundancy & Duplicate Prevention** | Semantic similarity check in `app/services/redundancy_engine.py` suggests answered questions live as students type. |
+| **5** | **AI vs. Mentor Mode Selection** | Instant AI tutor explanation using Gemini (`app/services/ai_engine.py`) or posting to the community mentor forum. |
+| **6** | **Kaggle-Style Feedback & Ratings** | Community upvotes/downvotes (+10 upvote, -5 downvote, +25 best-fit) with ranked leaderboard and tier badges (*Novice, Expert, Master, Grandmaster*). |
+| **7** | **Voice Assistance** | Web Speech API Speech-to-Text (STT) voice input for doubts, and Text-to-Speech (TTS) answer audio playback. |
+| **+** | **Gemini API Key Fallback Engine** | Multi-key failover manager in `app/services/ai_engine.py`: automatically rotates keys on HTTP 429/403 rate limits without breaking student workflow. |
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
-- **Styling**: Tailwind CSS
-- **Database**: Local JSON file storage (zero-setup)
-- **AI**: Google Gemini API with multi-key fallback
-- **PDF**: jsPDF (client-side generation)
-- **Voice**: Browser Web Speech API
+- **Backend & Core Logic (98% Python)**:
+  - **FastAPI**: Modern, high-performance web framework
+  - **Pydantic**: Data validation and strict typing
+  - **ReportLab**: Pure Python PDF revision sheet generator
+  - **Google GenAI / Generative AI**: Gemini API with multi-key fallback
+  - **Uvicorn**: Lightning-fast ASGI web server
+- **Frontend & Templates**:
+  - **Jinja2**: Server-side template rendering
+  - **Tailwind CSS**: Utility-first styling via CDN
+  - **Web Speech API**: Browser-native SpeechRecognition & SpeechSynthesis
 
-## 📦 Quick Start
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/yashsonawane18/Vibecoder.git
-cd Vibecoder
-
-# 2. Install dependencies
-npm install
-
-# 3. Configure Gemini API keys
-# Edit .env.local with your keys:
-# PRIMARY_GEMINI_API_KEY=your-key-here
-# SECONDARY_GEMINI_API_KEY=your-backup-key-here
-
-# 4. Start the development server
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see the app.
+---
 
 ## 📁 Project Structure
 
-```
+```text
 academic-doubt-forum/
-├── data/                          # JSON file storage (seed data included)
-│   ├── questions.json
-│   ├── answers.json
-│   └── users.json
-├── src/
-│   ├── app/
-│   │   ├── api/                   # API routes
-│   │   │   ├── questions/         # CRUD + dedup + best-fit
-│   │   │   └── leaderboard/       # Mentor rankings
-│   │   ├── question/[id]/         # Question detail page
-│   │   ├── leaderboard/           # Leaderboard page
-│   │   ├── page.jsx               # Home forum feed
-│   │   ├── layout.jsx             # Root layout
-│   │   └── globals.css            # Tailwind + custom classes
-│   ├── components/
-│   │   ├── Navbar.jsx             # Navigation
-│   │   ├── QuestionCard.jsx       # Doubt card with voice
-│   │   ├── AskQuestionModal.jsx   # Doubt input with AI/Mentor toggle
-│   │   ├── AnswerSection.jsx      # Answers list + voting
-│   │   ├── BestFitAnswerCard.jsx  # AI-selected top answer
-│   │   ├── RedundancyAlert.jsx    # Duplicate warning
-│   │   ├── PdfExportButton.jsx    # PDF download
-│   │   └── VoiceButton.jsx        # STT/TTS controls
-│   └── lib/
-│       ├── ai.js                  # Gemini API + fallback engine
-│       ├── storage.js             # JSON file CRUD
-│       ├── voice.js               # Web Speech API wrappers
-│       └── pdf.js                 # jsPDF generator
-└── package.json
+├── app/
+│   ├── __init__.py
+│   ├── main.py                  # FastAPI app entry point & router registration
+│   ├── config.py                # Environment configuration & Gemini API keys
+│   ├── models.py                # Pydantic schemas (Questions, Answers, Karma, Tiers)
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   ├── questions.py         # Q&A CRUD, Vote, Best-Fit, Deduplication, PDF endpoints
+│   │   ├── leaderboard.py       # Kaggle ratings and ranking endpoint
+│   │   └── views.py             # HTML page views (Feed, Detail, Leaderboard)
+│   └── services/
+│       ├── __init__.py
+│       ├── storage.py           # Thread-safe JSON persistence & Kaggle karma engine
+│       ├── ai_engine.py         # Multi-key Gemini API Fallback Engine
+│       ├── redundancy_engine.py # Semantic Deduplication & similarity analyzer
+│       ├── analyzer_engine.py   # AI Best-Fit solution evaluator
+│       └── pdf_engine.py        # ReportLab PDF Revision Sheet generator
+├── templates/
+│   ├── base.html                # Shared layout with responsive navigation & Tailwind
+│   ├── index.html               # Main forum feed, subject filter pills, Ask Doubt modal
+│   ├── question_detail.html     # Question view, AI answer, answers list, voting & PDF
+│   └── leaderboard.html         # Kaggle-style rankings with medals and contributor tiers
+├── static/
+│   ├── css/
+│   │   └── style.css            # Custom badge & recording pulse animation styling
+│   └── js/
+│       └── app.js               # Client-side audio Web Speech API & modal controls
+├── data/
+│   ├── questions.json           # Seeded questions data
+│   ├── answers.json             # Seeded answers data
+│   └── users.json               # Seeded mentor profiles & karma points
+├── run.py                       # Python runner script
+├── requirements.txt             # Python dependencies
+└── README.md
 ```
 
-## 🏗️ Architecture
+---
 
-The application follows a clean architecture with the Web Interface at the center, connecting all 7 features:
+## ⚡ Quick Start
 
-- **Student User** → Types/Speaks doubt → **Web Interface**
-- **Web Interface** → Check Redundancy → **Similarity Engine** → Show Existing Answers
-- **Web Interface** → AI or Mentors? → **AI Chatbot** / **Subject Forum DB**
-- **Mentors** → Answer Doubt → **Forum DB** → **AI Best-Fit Analyzer** → Top Solution
-- **Web Interface** → Rate & Vote → **Kaggle-style Ratings**
-- **Web Interface** → Export PDF → **PDF Revision Generator**
-- **Web Interface** → Voice I/O → **Web Speech API** / **speechSynthesis**
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yashsonawane18/Vibecoder.git
+cd Vibecoder
+```
 
-## 👥 Team
+### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-Built for hackathon demonstration.
+### 3. Configure Gemini API Key
+Create or edit `.env.local` or `.env`:
+```env
+PRIMARY_GEMINI_API_KEY=your_actual_gemini_api_key_here
+SECONDARY_GEMINI_API_KEY=your_fallback_gemini_key_here
+```
+
+### 4. Run the Server
+```bash
+python run.py
+```
+Open **[http://localhost:3000](http://localhost:3000)** in your browser!
+Interactive API docs available at **[http://localhost:3000/docs](http://localhost:3000/docs)**.

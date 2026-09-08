@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Mentor Leaderboard - Academic Doubt Forum{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8">
+  <div class="text-center">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight flex items-center justify-center gap-2">
+      <span>🏆</span> Mentor Leaderboard
+    </h1>
+    <p class="mt-2 text-base text-gray-600">
+      Kaggle-style contributor ratings. Earn +10 for answer upvotes and +25 for AI best-fit selections!
+    </p>
+  </div>
+
+  <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider">
+            <th class="py-4 px-6">Rank</th>
+            <th class="py-4 px-6">Contributor</th>
+            <th class="py-4 px-6">Role</th>
+            <th class="py-4 px-6">Karma Points</th>
+            <th class="py-4 px-6">Tier Level</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 text-sm">
+          {% for u in users %}
+            <tr class="hover:bg-indigo-50/40 transition-colors {% if loop.index == 1 %}bg-amber-50/40{% elif loop.index == 2 %}bg-slate-50/60{% elif loop.index == 3 %}bg-orange-50/30{% endif %}">
+              <td class="py-4 px-6 font-bold">
+                {% if loop.index == 1 %}
+                  <span class="text-2xl" title="1st Place">🥇</span>
+                {% elif loop.index == 2 %}
+                  <span class="text-2xl" title="2nd Place">🥈</span>
+                {% elif loop.index == 3 %}
+                  <span class="text-2xl" title="3rd Place">🥉</span>
+                {% else %}
+                  <span class="text-gray-500 text-base font-semibold">#{{ loop.index }}</span>
+                {% endif %}
+              </td>
+              <td class="py-4 px-6">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
+                    {{ u.name[0] | upper }}
+                  </div>
+                  <span class="font-bold text-gray-900">{{ u.name }}</span>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <span class="badge-role badge-{{ u.role | lower }}">
+                  {{ u.role | capitalize }}
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <span class="font-extrabold text-indigo-600 text-base">{{ u.points }}</span>
+                <span class="text-xs text-gray-400 ml-1">pts</span>
+              </td>
+              <td class="py-4 px-6">
+                {% if u.tier == 'Grandmaster' %}
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                    👑 Grandmaster
+                  </span>
+                {% elif u.tier == 'Master' %}
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800 border border-purple-300">
+                    💎 Master
+                  </span>
+                {% elif u.tier == 'Expert' %}
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 border border-blue-300">
+                    ⭐ Expert
+                  </span>
+                {% else %}
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-700 border border-gray-200">
+                    🌱 Novice
+                  </span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

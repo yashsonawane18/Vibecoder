@@ -1,0 +1,42 @@
+/* Subject Badges */
+.badge-subject {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.badge-computer-science { background-color: #DBEAFE; color: #1E40AF; border: 1px solid #BFDBFE; }
+.badge-mathematics { background-color: #F3E8FF; color: #6B21A8; border: 1px solid #E9D5FF; }
+.badge-physics { background-color: #DCFCE7; color: #166534; border: 1px solid #BBF7D0; }
+.badge-electronics { background-color: #FFEDD5; color: #9A3412; border: 1px solid #FED7AA; }
+.badge-general { background-color: #F3F4F6; color: #374151; border: 1px solid #E5E7EB; }
+
+/* Role Badges */
+.badge-role {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.badge-student { background-color: #F3F4F6; color: #4B5563; }
+.badge-senior { background-color: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
+.badge-faculty { background-color: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+.badge-peer { background-color: #CCFBF1; color: #115E59; border: 1px solid #99F6E4; }
+
+/* Custom animations */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+}
+
+.recording-pulse {
+  animation: pulseGlow 1.5s infinite;
+}
