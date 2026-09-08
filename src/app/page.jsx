@@ -37,8 +37,12 @@ export default function Home() {
         body: JSON.stringify(formData),
       });
       if (res.ok) {
-        setIsModalOpen(false);
-        fetchQuestions();
+        const data = await res.json();
+        fetchQuestions(); // Refresh list on dashboard
+        if (formData.mode !== 'ai') {
+          setIsModalOpen(false);
+        }
+        return data.question;
       }
     } catch (error) {
       console.error('Error submitting question:', error);

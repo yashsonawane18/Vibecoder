@@ -56,6 +56,23 @@ export default function QuestionCard({ question }) {
         </p>
       </Link>
 
+      {question.aiAnswer && (
+        <div className="mt-3 p-3.5 bg-gradient-to-br from-indigo-50/90 to-purple-50/70 border border-indigo-100 rounded-lg text-sm">
+          <div className="flex items-center justify-between text-xs font-semibold text-indigo-800 mb-1.5">
+            <span className="flex items-center gap-1.5">
+              <span className="text-base">🤖</span> Instant AI Solution
+            </span>
+            <VoiceButton mode="speak" text={question.aiAnswer} />
+          </div>
+          <p className="text-gray-700 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
+            {question.aiAnswer}
+          </p>
+          <Link href={`/question/${question.id}`} className="inline-block mt-2 text-xs font-medium text-indigo-600 hover:text-indigo-800 underline">
+            Read full solution & discussion →
+          </Link>
+        </div>
+      )}
+
       <div className="flex justify-between items-center mt-4 pt-4 border-t text-sm">
         <div className="flex items-center gap-2 text-gray-500">
           <span className="font-medium text-gray-900">{question.authorName}</span>

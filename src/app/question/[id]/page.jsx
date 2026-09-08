@@ -129,11 +129,16 @@ export default function QuestionDetail() {
         </div>
 
         {question.aiAnswer && (
-          <div className="mt-6 border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
-            <h3 className="font-bold text-blue-800 mb-2 flex items-center gap-2">
-              <span>🤖</span> AI Instant Answer
-            </h3>
-            <p className="text-blue-900 text-sm whitespace-pre-wrap">{question.aiAnswer}</p>
+          <div className="mt-6 border border-indigo-200 bg-gradient-to-br from-indigo-50/90 via-purple-50/70 to-pink-50/50 p-5 rounded-xl shadow-sm">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-bold text-indigo-900 flex items-center gap-2 text-base">
+                <span className="text-xl">🤖</span> AI Instant Answer
+              </h3>
+              <VoiceButton mode="speak" text={question.aiAnswer} />
+            </div>
+            <div className="text-gray-800 text-sm whitespace-pre-wrap leading-relaxed bg-white/70 p-4 rounded-lg border border-indigo-100/80">
+              {question.aiAnswer}
+            </div>
           </div>
         )}
 

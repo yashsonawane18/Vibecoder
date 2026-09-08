@@ -11,26 +11,37 @@ class GeminiFallbackClient {
       throw new Error('No valid Gemini API keys available');
     }
 
+    const candidateModels = ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-2.0-flash-exp'];
+
     while (this.currentKeyIndex < this.apiKeys.length) {
-      try {
-        const key = this.apiKeys[this.currentKeyIndex];
-        const genAI = new GoogleGenerativeAI(key);
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-        const result = await model.generateContent(prompt);
-        return result.response.text();
-      } catch (error) {
-        const status = error.status || (error.response && error.response.status);
-        if (status === 429 || status === 403 || error.name === 'NetworkError' || error.message.includes('fetch')) {
-          console.warn(`API key at index ${this.currentKeyIndex} failed: ${error.message}. Trying next key...`);
-          this.currentKeyIndex++;
-        } else {
+      const key = this.apiKeys[this.currentKeyIndex];
+      const genAI = new GoogleGenerativeAI(key);
+
+      for (const modelName of candidateModels) {
+        try {
+          const model = genAI.getGenerativeModel({ model: modelName });
+          const result = await model.generateContent(prompt);
+          return result.response.text();
+        } catch (error) {
+          const status = error.status || (error.response && error.response.status);
+          // If model is 404, try next candidate model
+          if (status === 404 || error.message.includes('not found') || error.message.includes('no longer available')) {
+            console.warn(`Model ${modelName} not available, trying next candidate...`);
+            continue;
+          }
+          // If rate limited or quota exceeded, switch to next API key
+          if (status === 429 || status === 403 || error.name === 'NetworkError' || error.message.includes('fetch')) {
+            console.warn(`API key at index ${this.currentKeyIndex} hit limit (${status}). Trying next key...`);
+            this.currentKeyIndex++;
+            break; // break inner model loop to try next key
+          }
           throw error;
         }
       }
     }
     
     this.currentKeyIndex = 0;
-    throw new Error('All provided Gemini API keys have been exhausted or failed.');
+    throw new Error('All provided Gemini API keys and models have been exhausted or failed.');
   }
 }
 

@@ -45,6 +45,22 @@ export const generateQuestionPDF = async (question, answers, bestFitAnswer) => {
   doc.text(bodyLines, margin, yPosition);
   yPosition += bodyLines.length * 6 + 10;
   
+  if (question.aiAnswer) {
+    checkPageBreak(20);
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(79, 70, 229);
+    doc.text('AI Instant Solution', margin, yPosition);
+    doc.setTextColor(0, 0, 0);
+    yPosition += 8;
+
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    const aiLines = doc.splitTextToSize(question.aiAnswer, maxTextWidth);
+    checkPageBreak(aiLines.length * 5);
+    doc.text(aiLines, margin, yPosition);
+    yPosition += aiLines.length * 5 + 12;
+  }
   if (bestFitAnswer) {
     checkPageBreak(20);
     doc.setFontSize(14);
