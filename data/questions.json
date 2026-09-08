@@ -1,0 +1,50 @@
+[
+  {
+    "id": "q1",
+    "title": "What is the time complexity of Bubble Sort?",
+    "body": "Can someone explain the best, average, and worst case time complexity of bubble sort algorithm with examples?",
+    "subject": "Computer Science",
+    "authorName": "Rahul Sharma",
+    "authorRole": "student",
+    "createdAt": "2026-09-07T10:30:00.000Z",
+    "aiAnswer": null,
+    "mode": "mentor",
+    "status": "open"
+  },
+  {
+    "id": "q2",
+    "title": "Explain Newton's Third Law with real-world examples",
+    "body": "I understand the statement 'every action has an equal and opposite reaction' but I struggle to apply it to real scenarios. Can someone give practical examples?",
+    "subject": "Physics",
+    "authorName": "Priya Patel",
+    "authorRole": "student",
+    "createdAt": "2026-09-07T14:15:00.000Z",
+    "aiAnswer": null,
+    "mode": "mentor",
+    "status": "open"
+  },
+  {
+    "id": "q3",
+    "title": "How to solve integration by parts?",
+    "body": "I keep getting confused about which function to choose as u and which as dv in integration by parts. Is there a systematic approach?",
+    "subject": "Mathematics",
+    "authorName": "Amit Kumar",
+    "authorRole": "student",
+    "createdAt": "2026-09-08T08:00:00.000Z",
+    "aiAnswer": null,
+    "mode": "mentor",
+    "status": "open"
+  },
+  {
+    "id": "q4",
+    "title": "What is the difference between BJT and MOSFET?",
+    "body": "When should we use BJT vs MOSFET in circuit design? What are the key differences in terms of input impedance, switching speed, and power consumption?",
+    "subject": "Electronics",
+    "authorName": "Sneha Reddy",
+    "authorRole": "student",
+    "createdAt": "2026-09-08T09:30:00.000Z",
+    "aiAnswer": null,
+    "mode": "mentor",
+    "status": "open"
+  }
+]

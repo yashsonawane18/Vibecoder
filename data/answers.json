@@ -1,0 +1,35 @@
+[
+  {
+    "id": "a1",
+    "questionId": "q1",
+    "body": "Bubble Sort has the following time complexities:\n\n- **Best Case: O(n)** - When the array is already sorted, only one pass is needed with the optimized version.\n- **Average Case: O(n²)** - On average, we need n/2 passes with n/2 comparisons each.\n- **Worst Case: O(n²)** - When the array is sorted in reverse order, every element needs to be compared and swapped.",
+    "authorName": "Dr. Anil Verma",
+    "authorRole": "faculty",
+    "votes": 12,
+    "isBestFit": false,
+    "bestFitReason": null,
+    "createdAt": "2026-09-07T11:00:00.000Z"
+  },
+  {
+    "id": "a2",
+    "questionId": "q1",
+    "body": "Think of it like sorting playing cards. In each round, the largest unsorted card 'bubbles up' to its correct position. So for n cards, you need at most n-1 rounds, and in each round you compare adjacent pairs. That gives O(n²) for worst/average case. Best case O(n) if you add a flag to detect no swaps.",
+    "authorName": "Vikram Singh",
+    "authorRole": "senior",
+    "votes": 8,
+    "isBestFit": false,
+    "bestFitReason": null,
+    "createdAt": "2026-09-07T11:30:00.000Z"
+  },
+  {
+    "id": "a3",
+    "questionId": "q1",
+    "body": "Best O(n), Worst and Average O(n^2). Space complexity is O(1) since it's in-place.",
+    "authorName": "Ravi Teja",
+    "authorRole": "peer",
+    "votes": 3,
+    "isBestFit": false,
+    "bestFitReason": null,
+    "createdAt": "2026-09-07T12:00:00.000Z"
+  }
+]

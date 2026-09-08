@@ -1,0 +1,23 @@
+[
+  {
+    "id": "u1",
+    "name": "Dr. Anil Verma",
+    "role": "faculty",
+    "points": 175,
+    "tier": "Master"
+  },
+  {
+    "id": "u2",
+    "name": "Vikram Singh",
+    "role": "senior",
+    "points": 92,
+    "tier": "Expert"
+  },
+  {
+    "id": "u3",
+    "name": "Ravi Teja",
+    "role": "peer",
+    "points": 28,
+    "tier": "Novice"
+  }
+]
